@@ -8,7 +8,8 @@ public class Main {
         new DatabaseInitService().initDatabase();
         ClientService clientService = new ClientService(Database.getInstance().getConnection());
 
-        System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
-        System.out.println(clientService.getById(12));
+        //System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
+        System.out.println(clientService.getById(13));
+        clientService.setName(13, "Sofia");
     }
 }

@@ -10,11 +10,13 @@ import java.util.List;
 public class ClientService {
     private PreparedStatement createSt;
     private PreparedStatement readSt;
+    private PreparedStatement updateSt;
 
     public ClientService(Connection connection) {
         try{
             createSt = connection.prepareStatement("INSERT INTO client (name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
             readSt = connection.prepareStatement("SELECT name FROM client WHERE id = ?");
+            updateSt = connection.prepareStatement("UPDATE client SET name = (?) WHERE id = (?)");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,5 +54,19 @@ public class ClientService {
             e.printStackTrace();
         }
         return "Client not found";
+    }
+
+    public void setName(long id, String name) {
+        if (name.length() < 2 || name.length() > 1000) {
+            throw new IllegalArgumentException("Invalid name");
+        }
+
+        try {
+            updateSt.setString(1, name);
+            updateSt.setLong(2, id);
+            updateSt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

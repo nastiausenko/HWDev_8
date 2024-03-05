@@ -12,6 +12,7 @@ public class ClientService {
     private PreparedStatement readSt;
     private PreparedStatement updateSt;
     private PreparedStatement deleteSt;
+    private PreparedStatement getSt;
 
     public ClientService(Connection connection) {
         try{
@@ -19,6 +20,7 @@ public class ClientService {
             readSt = connection.prepareStatement("SELECT name FROM client WHERE id = ?");
             updateSt = connection.prepareStatement("UPDATE client SET name = (?) WHERE id = (?)");
             deleteSt = connection.prepareStatement("DELETE FROM client WHERE id = ?");
+            getSt = connection.prepareStatement("SELECT * FROM client");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,4 +82,24 @@ public class ClientService {
             e.printStackTrace();
         }
     }
+
+    public List<Client> listAll() {
+        List<Client> clients = new ArrayList<>();
+        try {
+            ResultSet resultSet = getSt.executeQuery();
+            while (resultSet.next()) {
+                clients.add(new Client(resultSet.getInt("id"),
+                        resultSet.getString("name")));
+            }
+            if (clients.isEmpty()) {
+                System.out.println("Table is empty");
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clients;
+    }
+
+
 }

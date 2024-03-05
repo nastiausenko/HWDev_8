@@ -1,6 +1,9 @@
 package org.example;
 
+import org.example.client.Client;
 import org.example.client.ClientService;
+
+import java.util.List;
 
 
 public class Main {
@@ -8,12 +11,15 @@ public class Main {
         new DatabaseInitService().initDatabase();
         ClientService clientService = new ClientService(Database.getInstance().getConnection());
 
-        //System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
-        System.out.println(clientService.getById(13));
-        clientService.setName(13, "Sofia");
+        System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
+        System.out.println(clientService.getById(2));
+        clientService.setName(4, "Sofia");
+        clientService.deleteById(3);
 
-        clientService.deleteById(13);
-        System.out.println(clientService.getById(13));
 
+        List<Client> clients = clientService.listAll();
+        for (Client client : clients) {
+            System.out.println(client);
+        }
     }
 }

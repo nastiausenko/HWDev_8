@@ -5,25 +5,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    public static final Database instance = new Database();
+    private static final Database INSTANCE = new Database();
     private final String dbUrl = "jdbc:h2:~/test";
     private final String dbUser = "sa";
     private final String dbPass = "";
     private Connection connection;
 
-    private Database() {
+    private Database (){
         try {
             connection = DriverManager.getConnection(dbUrl, dbUser, dbPass);
-        } catch (SQLException e) {
-            e.fillInStackTrace();
+        }catch (SQLException e){
+            e.printStackTrace();
         }
     }
-
-    public static Database getInstance() {
-        return instance;
+    public static Database getInstance(){
+        return INSTANCE;
     }
-
-    public Connection getConnection() {
+    public Connection getConnection(){
         return connection;
     }
 }

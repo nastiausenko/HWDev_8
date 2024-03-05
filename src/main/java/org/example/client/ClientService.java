@@ -26,7 +26,7 @@ public class ClientService {
         }
     }
 
-    public long create(String name)  {
+    public long create(String name) {
         if (name.length() < 2 || name.length() > 1000) {
             throw new IllegalArgumentException("Invalid name");
         }
@@ -100,6 +100,4 @@ public class ClientService {
         }
         return clients;
     }
-
-
 }

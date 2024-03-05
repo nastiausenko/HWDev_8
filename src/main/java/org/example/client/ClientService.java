@@ -11,12 +11,14 @@ public class ClientService {
     private PreparedStatement createSt;
     private PreparedStatement readSt;
     private PreparedStatement updateSt;
+    private PreparedStatement deleteSt;
 
     public ClientService(Connection connection) {
         try{
             createSt = connection.prepareStatement("INSERT INTO client (name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
             readSt = connection.prepareStatement("SELECT name FROM client WHERE id = ?");
             updateSt = connection.prepareStatement("UPDATE client SET name = (?) WHERE id = (?)");
+            deleteSt = connection.prepareStatement("DELETE FROM client WHERE id = ?");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +67,15 @@ public class ClientService {
             updateSt.setString(1, name);
             updateSt.setLong(2, id);
             updateSt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteById(long id) {
+        try {
+            deleteSt.setLong(1, id);
+            deleteSt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

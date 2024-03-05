@@ -11,5 +11,9 @@ public class Main {
         //System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
         System.out.println(clientService.getById(13));
         clientService.setName(13, "Sofia");
+
+        clientService.deleteById(13);
+        System.out.println(clientService.getById(13));
+
     }
 }

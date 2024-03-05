@@ -9,5 +9,6 @@ public class Main {
         ClientService clientService = new ClientService(Database.getInstance().getConnection());
 
         System.out.println("Client {id = " + clientService.create("Nastia") + ", name = \'Nastia\'}");
+        System.out.println(clientService.getById(12));
     }
 }

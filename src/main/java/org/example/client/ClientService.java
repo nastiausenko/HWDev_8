@@ -93,7 +93,6 @@ public class ClientService {
             }
             if (clients.isEmpty()) {
                 System.out.println("Table is empty");
-                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
